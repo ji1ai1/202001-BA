@@ -1,3 +1,5 @@
+#0.051638
+
 library(data.table)
 
 測試會員表 = fread("sample_submission.csv", col.names=c("會員標識", "拍賣標識"))
