@@ -3,7 +3,7 @@ library(data.table)
 測試會員表 = fread("sample_submission.csv", col.names=c("會員標識", "拍賣標識"))
 測試會員表 = unique(測試會員表[, .(會員標識)], by = NULL)
 
-拍賣表 = fread("auction.csv", col.names=c("拍賣標識", "商品種別標識", "商品標識", "再出品回数", "狀態標識", "品牌標識", "類型標識", "類型組標識", "線標識", "顏色", "男女別標識", "參考價格", "拍賣作成日"))
+拍賣表 = fread("auction.csv", col.names=c("拍賣標識", "商品種別標識", "商品標識", "再出品回數", "狀態標識", "品牌標識", "類型標識", "類型組標識", "線標識", "顏色", "男女別標識", "參考價格", "拍賣作成日"))
 拍賣表$拍賣作成日序 = as.double(as.Date(substring(拍賣表$拍賣作成日, 1, 10))-as.Date("2019-10-01"))
 
 氣入追加表 = fread("watchlist.csv", col.names=c("會員標識", "拍賣標識", "登錄日", "削除標記"))
