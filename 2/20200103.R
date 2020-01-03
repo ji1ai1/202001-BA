@@ -9,14 +9,14 @@ Sys.setlocale("LC_CTYPE", "chinese")
 測試會員表 = unique(測試會員表[, .(會員標識)], by = NULL)
 
 拍賣表 = fread("auction.csv", col.names=c("拍賣標識", "商品種別標識", "商品標識", "再出品回數", "狀態標識", "品牌標識", "類型標識", "類型組標識", "線標識", "顏色", "男女別標識", "參考價格", "拍賣作成日"))
-拍賣表$拍賣作成日序 = as.double(as.Date(substring(拍賣表$拍賣作成日, 1, 10))-as.Date("2019-10-01"))
+拍賣表$拍賣作成日序 = as.double(as.Date(substring(拍賣表$拍賣作成日, 1, 10)) - as.Date("2019-10-01"))
 
 氣入追加表 = fread("watchlist.csv", col.names=c("會員標識", "拍賣標識", "氣入追加日", "削除標記"))
-氣入追加表$氣入追加日序 = as.double(as.Date(substring(氣入追加表$氣入追加日, 1, 10))-as.Date("2019-10-01"))
+氣入追加表$氣入追加日序 = as.double(as.Date(substring(氣入追加表$氣入追加日, 1, 10)) - as.Date("2019-10-01"))
 氣入追加表 = merge(氣入追加表, 拍賣表, by = "拍賣標識")
 
 入札表 = fread("shudounyuusatsu.csv", col.names=c("拍賣標識", "會員標識", "入札日", "金額", "數量", "即決標記", "削除標記"))
-入札表$入札日序 = as.double(as.Date(substring(入札表$入札日, 1, 10))-as.Date("2019-10-01"))
+入札表$入札日序 = as.double(as.Date(substring(入札表$入札日, 1, 10)) - as.Date("2019-10-01"))
 入札表 = merge(入札表, 拍賣表, by = "拍賣標識")
 
 測試日序 = -7
@@ -39,8 +39,6 @@ Sys.setlocale("LC_CTYPE", "chinese")
 	), by = NULL)
 
 	候選表 = merge(某會員表, 候選表, by = "會員標識")
-
-	候選表 = merge(候選表, 拍賣表[, .(拍賣標識)], by = c("拍賣標識"), all.x = T)
 
 	候選表 = merge(候選表, 某氣入追加表[, .(
 		氣入追加數 = .N
