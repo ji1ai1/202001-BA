@@ -105,6 +105,9 @@ Sys.setlocale("LC_CTYPE", "chinese")
 線下氣入追加模型 = lgb.train(data = lgb.Dataset(data.matrix(線下訓練資料表[, c(-1:-4)]), label = 線下訓練資料表$氣入追加標籤), objective = "binary", nround = 500, learning_rate = 0.01, max_depth = 6, num_leaves = 127, verbosity = -1)
 線下入札模型 = lgb.train(data = lgb.Dataset(data.matrix(線下訓練資料表[, c(-1:-4)]), label = 線下訓練資料表$入札標籤), objective = "binary", nround = 500, learning_rate = 0.01, max_depth = 6, num_leaves = 127, verbosity = -1)
 
+
+
+
 線下測試資料表 = 取得資料(線下測試會員表, 線下氣入追加表, 線下入札表, 線下落札表, 線下測試日序)
 線下測試資料表 = cbind(線下測試資料表[, .(會員標識, 拍賣標識, 氣入追加標籤 = -1, 入札標籤 = -1)], 線下測試資料表[, -c("會員標識", "拍賣標識")])
 線下預測表 = 線下測試資料表[, .(會員標識, 拍賣標識, 氣入追加打分 = predict(線下氣入追加模型, data.matrix(線下測試資料表[, c(-1:-4)])), 入札打分 = predict(線下入札模型, data.matrix(線下測試資料表[, c(-1:-4)])))]
